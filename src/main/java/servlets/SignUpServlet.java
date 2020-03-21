@@ -56,7 +56,7 @@ public class SignUpServlet extends HttpServlet {
                 accountService.addSession(req.getSession().getId(), profile);
                 Gson gson = new Gson();
                 String json = gson.toJson(profile);
-                resp.getWriter().println(json);
+                resp.getWriter().println(login);
                 resp.setStatus(HttpServletResponse.SC_OK);
             }
         } catch (DBException e) {

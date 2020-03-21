@@ -23,6 +23,7 @@ public class AccountService {
     }
 
     public UsersDataSet getUserByLogin(String login) throws DBException {
+        dbService.printConnectInfo();
         return dbService.getUserN(login);
     }
 

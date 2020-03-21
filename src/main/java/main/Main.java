@@ -18,6 +18,7 @@ public class Main {
         accountService.addNewUser(("admin"));
         accountService.addNewUser(("test"));
 
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         //создаем 2 сервлета: 1) для регистрации
         //                    2) для авторизации
