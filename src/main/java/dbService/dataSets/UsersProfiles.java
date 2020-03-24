@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "users")
-public class UsersDataSet implements Serializable { // Serializable Important to Hibernate!
+@Table(name = "profils")
+public class UsersProfiles implements Serializable { // Serializable Important to Hibernate!
     private static final long serialVersionUID = -8706689714326132798L;
 
     @Id
@@ -13,45 +13,35 @@ public class UsersDataSet implements Serializable { // Serializable Important to
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "idSession", unique = true)
-    private String idSession;
-
     @Column(name = "login", unique = true, updatable = false)
     private String login;
 
-    public String getIdSession() {
-        return idSession;
+    public String getCharacterName() {
+        return characterName;
     }
 
-    public void setIdSession(String idSession) {
-        this.idSession = idSession;
+    public void setCharacterName(String characterName) {
+        this.characterName = characterName;
     }
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "characterName")
+    private String characterName;
 
     //Important to Hibernate!
     @SuppressWarnings("UnusedDeclaration")
-    public UsersDataSet() {
+    public UsersProfiles() {
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    public UsersDataSet(long id, String login) {
+    public UsersProfiles(long id, String login) {
         this.setId(id);
         this.setLogin(login);
     }
 
-    public UsersDataSet(String login, String idSession) {
+    public UsersProfiles(String login) {
         this.setId(-1);
         this.setLogin(login);
-        this.setPassword(login);
-        this.setIdSession(idSession);
-    }
-
-    public UsersDataSet(String login) {
-        this.setId(-1);
-        this.setLogin(login);
-        this.setPassword(login);
+        this.setCharacterName(characterName);
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -71,21 +61,13 @@ public class UsersDataSet implements Serializable { // Serializable Important to
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public String toString() {
         return "UserDataSet{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", idSession='" + idSession + '\'' +
+                ", characterName='" + characterName + '\'' +
                 '}';
     }
 }

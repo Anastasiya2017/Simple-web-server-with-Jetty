@@ -2,6 +2,7 @@ package dbService;
 
 import dbService.dao.UsersDAO;
 import dbService.dataSets.UsersDataSet;
+import dbService.dataSets.UsersProfiles;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,6 +30,7 @@ public class DBService {
     private Configuration getPostgresConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(UsersDataSet.class);
+        configuration.addAnnotatedClass(UsersProfiles.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
@@ -130,5 +132,27 @@ public class DBService {
         builder.applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = builder.build();
         return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+    public UsersDataSet getUserIdSession(String sessionId) {
+        Session session = sessionFactory.openSession();
+        UsersDAO dao = new UsersDAO(session);
+        UsersDataSet usersDataSet = dao.getUserIdSession(sessionId);
+        if (usersDataSet == null) {
+            return null;
+        }
+        session.close();
+        return usersDataSet;
+    }
+
+    public String addSessionId(String sessionId, UsersDataSet user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        String login = dao.insertSession(sessionId, user);
+        transaction.commit();
+        session.close();
+        return login;
+       
     }
 }

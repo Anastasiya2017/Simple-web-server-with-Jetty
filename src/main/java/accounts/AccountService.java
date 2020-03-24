@@ -19,7 +19,6 @@ public class AccountService {
     public void addNewUser(String login) throws DBException {
         long userId = dbService.addUser(login);
         System.out.println("Added user id: " + userId + " " + login);
-
     }
 
     public UsersDataSet getUserByLogin(String login) throws DBException {
@@ -28,11 +27,18 @@ public class AccountService {
     }
 
     public UsersDataSet getUserBySessionId(String sessionId) {
-        return sessionIdToProfile.get(sessionId);
+        /*for(Map.Entry<String, UsersDataSet> e : sessionIdToProfile.entrySet()) {
+            System.out.println(e.getKey());
+            System.out.println(e.getValue());
+        }*/
+//        return sessionIdToProfile.get(sesdataSetsionId);
+        return dbService.getUserIdSession(sessionId);
     }
 
     public void addSession(String sessionId, UsersDataSet userProfile) {
-        sessionIdToProfile.put(sessionId, userProfile);
+        String login = dbService.addSessionId(sessionId, userProfile);
+        System.out.println("Added user id: " + sessionId + " " + login);
+//        sessionIdToProfile.put(sessionId, userProfile);
     }
 
     public void deleteSession(String sessionId) {

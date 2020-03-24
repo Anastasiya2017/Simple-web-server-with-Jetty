@@ -51,9 +51,9 @@ public class SignUpServlet extends HttpServlet {
             } else {
                 accountService.addNewUser(login);
                 String sessionId = req.getSession().getId();
-                accountService.addSession(sessionId, profile);
+//                accountService.addSession(sessionId, profile);
                 resp.setContentType("text/html;charset=utf-8");
-                accountService.addSession(req.getSession().getId(), profile);
+//                accountService.addSession(req.getSession().getId(), profile);
                 Gson gson = new Gson();
                 String json = gson.toJson(profile);
                 resp.getWriter().println(login);

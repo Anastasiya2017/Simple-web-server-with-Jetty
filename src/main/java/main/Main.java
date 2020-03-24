@@ -8,6 +8,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import servlets.ProfileServlet;
 import servlets.SignInServlet;
 import servlets.SignUpServlet;
 
@@ -18,12 +19,12 @@ public class Main {
         accountService.addNewUser(("admin"));
         accountService.addNewUser(("test"));
 
-
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         //создаем 2 сервлета: 1) для регистрации
         //                    2) для авторизации
         // и закладываем эти сервлеты по адресам
-        context.addServlet(new ServletHolder(new WebSocketChatServlet()), "/chat");
+        context.addServlet(new ServletHolder(new WebSocketChatServlet(accountService)), "/game");
+        context.addServlet(new ServletHolder(new ProfileServlet(accountService)), "/profile");
         context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
 //        context.addServlet(new ServletHolder(new UsersServlet(accountService)), "/api/v1/users");
@@ -39,7 +40,7 @@ public class Main {
         server.setHandler(handlers);
 
         server.start();
-        java.util.logging.Logger.getGlobal().info("Server started");
+//        java.util.logging.Logger.getGlobal().info("Server started");
         server.join();
     }
 }

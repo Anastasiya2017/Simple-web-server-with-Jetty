@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>start game</title>
+</head>
+<body onload="init();">
+<form action="/profile" method="POST">
+    <input type="password" name="password"/>
+    <input name="command" type="submit" formaction="game" autofocus value="завершить игру">
+</form>
+<blockquote class="blockquote text-center">
+    <p class="mb-0"></p>
+    <h1>Welcome to the Game!</h1>
+    <footer class="blockquote-footer">Игра — высшая форма исследования.<cite title="Название источника"> (Альберт
+        Эйнштейн)</cite>
+    </footer>
+</blockquote>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p><b>Управление: вверх, вниз, вправо, влево</b> (с помощью стрелок)</p>
+            <div id="square">
+                <div style="position: absolute; left: 18px; top: 30px;" id="PerSonag">
+                    <img src="resources/images/60x60_dog.gif" alt="object1">
+                </div>
+            </div>
+        </div>
+        <div class="col" id="body">
+            <div class="row">
+                <div class="col" class="welcome">
+                    Welcome, <input id="username" value=${message}/>
+                </div>
+                <div class="col" id="menu">
+                    <img src="resources/images/ghost.png" alt="im3" class="img-responsive center-block">
+                </div>
+            </div>
+            <div id="chatbox">
+                <textarea id="messages" rows="16" cols="50" readonly="readonly"></textarea>
+            </div>
+
+            <form name="message" action="">
+                <input name="usermsg" type="text" id="message" size="40"/>
+                <input type="button" name="submitmsg" value="Send..." onclick="sendMessage();"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="resources/scripts/script_game.js"></script>
+</html>

@@ -1,63 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<script type="text/javascript">
-    var ws;
-
-    function init() {
-        ws = new WebSocket("ws://localhost:8080/chat");
-        ws.onopen = function (event) {
-
-        }
-        ws.onmessage = function (event) {
-            var $textarea = document.getElementById("messages");
-            $textarea.value = $textarea.value + event.data + "\n";
-        }
-        ws.onclose = function (event) {
-
-        }
-    };
-
-    function sendMessage() {
-        var messageField = document.getElementById("message");
-        var userNameField = document.getElementById("username");
-        var message = userNameField.value + ":" + messageField.value;
-        ws.send(message);
-        messageField.value = '';
-    }
-</script>
-</html>
 <head>
     <meta charset="UTF-8"/>
     <title>NEW GAME 20_ 20</title>
 </head>
 <body onload="init();">
 <p>Welcome to the Game!</p>
-<p>Account login</p>
+<p>Account login
+</p>
 <div style="background: aliceblue; height: 67px; width: max-content;">
-    <form method="POST">
+    <p><b>Вход</b></p>
+    <form  method="POST"><!--action="profile.html"-->
         Login: <input type="text" name="login"/>
         Password: <input type="password" name="password"/>
         <input type="submit" formaction="/signin" autofocus value="Sign in">
-        <input type="submit" formaction="/signup"  value="Sign up">
     </form>
-    <div action="/api/v1/users"><a href="/auth.html"></a>Sign up</div>
-</div>
-<div id="body">
-    <div id="menu">
-        <p class="welcome">
-            Welcome, <input id="username" value="anonymous"/>
-        </p>
-
-        <div style="clear: both"></div>
-    </div>
-
-    <div id="chatbox">
-        <textarea id="messages" rows="20" cols="50" readonly="readonly"></textarea>
-    </div>
-
-    <form name="message" action="">
-        <input name="usermsg" type="text" id="message" size="40"/>
-        <input type="button" name="submitmsg" value="Send..." onclick="sendMessage();"/>
+    <p><b>Регистрация</b></p>
+    <form action="index.html" method="POST">
+        Login: <input type="text" name="login"/>
+        Password: <input type="password" name="password"/>
+        <input type="submit" formaction="/signup" autofocus value="Sign up">
     </form>
 </div>
 </body>
