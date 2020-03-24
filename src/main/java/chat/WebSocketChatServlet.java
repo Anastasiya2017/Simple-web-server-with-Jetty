@@ -2,7 +2,6 @@ package chat;
 
 import accounts.AccountService;
 import com.google.gson.Gson;
-import dbService.DBException;
 import dbService.dataSets.UsersDataSet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 @WebServlet(name = "WebSocketChatServlet", urlPatterns = {"/game"})
 
 public class WebSocketChatServlet extends WebSocketServlet {
@@ -43,27 +43,20 @@ public class WebSocketChatServlet extends WebSocketServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
-        UsersDataSet profile = null;
-        try {
-            profile = accountService.getUserByLogin("test");
-            String sessionId = req.getSession().getId();
-            accountService.addSession(sessionId, profile);
-        } catch (DBException e) {
-            e.printStackTrace();
-        }
-
+        String sessionId = req.getSession().getId();
+        UsersDataSet profile = accountService.getUserBySessionId(sessionId);
         if (profile == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resp.getWriter().println("Unauthorized");
-            return;
+        } else {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().println(".");
+            Map<String, Object> pageVariables = createPageVariablesMap(req);
+            pageVariables.put("message", profile.getLogin());
+            resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
         }
-
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().println(".");
-        Map<String, Object> pageVariables = createPageVariablesMap(req);
-        pageVariables.put("message", profile.getLogin());
-        resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
     }
+
     public WebSocketChatServlet(AccountService accountService) {
         this.chatService = new ChatService();
         this.accountService = accountService;

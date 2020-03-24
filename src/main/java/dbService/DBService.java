@@ -153,6 +153,15 @@ public class DBService {
         transaction.commit();
         session.close();
         return login;
-       
+    }
+
+    public String deleteSessionId(UsersDataSet user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        String login = dao.insertSession("", user);
+        transaction.commit();
+        session.close();
+        return login;
     }
 }

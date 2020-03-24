@@ -1,7 +1,6 @@
 package servlets;
 
 import accounts.AccountService;
-import com.google.gson.Gson;
 import dbService.DBException;
 import dbService.dataSets.UsersDataSet;
 import templater.PageGenerator;
@@ -29,9 +28,9 @@ public class SignInServlet extends HttpServlet {
         if (profile == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
-            Gson gson = new Gson();
-            String json = gson.toJson(profile);
-            resp.getWriter().println(json);
+            Map<String, Object> pageVariables = createPageVariablesMap(req);
+            pageVariables.put("message", profile.getLogin());
+            resp.getWriter().println(PageGenerator.instance().getPage("index.html", pageVariables));
             resp.setStatus(HttpServletResponse.SC_OK);
         }
     }
@@ -49,8 +48,6 @@ public class SignInServlet extends HttpServlet {
         UsersDataSet profile = null;
         try {
             profile = accountService.getUserByLogin(login);
-            String sessionId = req.getSession().getId();
-            accountService.addSession(sessionId, profile);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -60,7 +57,8 @@ public class SignInServlet extends HttpServlet {
             resp.getWriter().println("Unauthorized");
             return;
         }
-
+        String sessionId = req.getSession().getId();
+        accountService.addSession(sessionId, profile);
         resp.setStatus(HttpServletResponse.SC_OK);
         Map<String, Object> pageVariables = createPageVariablesMap(req);
         pageVariables.put("message", profile.getLogin());

@@ -41,7 +41,9 @@ public class AccountService {
 //        sessionIdToProfile.put(sessionId, userProfile);
     }
 
-    public void deleteSession(String sessionId) {
-        sessionIdToProfile.remove(sessionId);
+    public String deleteSession(UsersDataSet user) {
+        String login = dbService.deleteSessionId(user);
+        System.out.println("Deleted user id: " + user + " " + login);
+        return login;
     }
 }

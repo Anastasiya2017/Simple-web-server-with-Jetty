@@ -10,9 +10,8 @@
     <title>start game</title>
 </head>
 <body onload="init();">
-<form action="/profile" method="POST">
-    <input type="password" name="password"/>
-    <input name="command" type="submit" formaction="game" autofocus value="завершить игру">
+<form method="GET">
+    <input name="command" type="submit" formaction="/profile" autofocus value="завершить игру">
 </form>
 <blockquote class="blockquote text-center">
     <p class="mb-0"></p>
