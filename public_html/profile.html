@@ -6,67 +6,130 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="newcharacter/form.css">
+    <link rel="import" href="newcharacter/form_create.html">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>start game</title>
 </head>
 <body onload="init();">
-<form  method="POST">
-    <input type="submit" formaction="/signout" autofocus value="Sign out">
+<form method="POST">
+    <input type="submit" formaction="/signout" autofocus value="Выход">
+</form>
+<form method="POST">
+    <input name="command" type="submit" formaction="/game" autofocus value="Играть">
 </form>
 <blockquote class="blockquote text-center">
     <p class="mb-0"></p>
     <h1>Игрок <b>${message}</b> - добро пожаловать!</h1>
-    <footer> Настройки вашего персонажа<cite title="Название источника"></cite>
+    <footer> Настройки ваших персонажей<cite title="Название источника"></cite>
     </footer>
 </blockquote>
 <div class="container">
     <div class="row">
         <div class="col">
-            <p>имя</p>
-            <input placeholder="придумайте имя вашему персонажу" name="usermsg" type="text" id="message" size="40"/>
+            <fieldset>
+                <legend>выбранный персонаж</legend>
+                <div class="text-left"><img class="characterImg" id="mySelCharactImg"
+                                            src="resources/images/100x71_pikachu.gif" alt=""></div>
+                <p id="mySelCharactName">Имя персонажа</p>
+            </fieldset>
             <p></p>
             <img src="" id="myCharact">
             <div class="row" id="myCharactImg">
-                <div class="col-sm"><img src="" alt="">Название</div>
-                <div class="col-sm"><img src="" alt="">Название</div>
-                <div class="col-sm"><img src="" alt="">Название</div>
+                <div id="character1" class="col-sm text-center">
+                    <input id="chetyre3" class="onCheck" name="raz" type="radio"/>
+                    <div class="Blue"><img id="addcharacter1" class="addcharacter1"
+                                           src=""
+                                           alt="персонаж 1">
+                        <figcaption id="addcharacter1name">Имя</figcaption>
+                    </div>
+                    <button class="addcharacter" name="addcharacter1" style="width:auto;">+
+                    </button>
+                </div>
+                <div id="character2" class="col-sm text-center">
+                    <input id="chetyre1" class="onCheck" name="raz" type="radio"/>
+                    <div class="Blue">
+                        <img id="addcharacter2" class="addcharacter2"
+                             src=""
+                             alt="персонаж 2">
+                        <figcaption id="addcharacter2name">Имя</figcaption>
+                    </div>
+                    <button class="addcharacter" name="addcharacter2" style="width:auto;">+
+                    </button>
+                </div>
+                <div id="character3" class="col-sm text-center">
+                    <input id="chetyre2" class="onCheck" name="raz" type="radio"/>
+                    <div class="Blue"><img id="addcharacter3" class="addcharacter3"
+                                           src=""
+                                           alt="персонаж 3">
+                        <figcaption id="addcharacter3name"
+                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Имя
+                        </figcaption>
+                    </div>
+                    <button class="addcharacter" name="addcharacter3" style="width:auto;">+
+                    </button>
+                </div>
             </div>
-            <p></p>
-            <form method="POST">
-                <input type="password" name="password"/>
-                <input name="command" type="submit" formaction="/game" autofocus value="Game Play!">
-            </form>
         </div>
         <div class="col">
-            <div class="container" id="images">
-                <div class="row">
-                    <div class="col">
-                        <img src="resources/images/people.gif" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="resources/images/100x100_mouse.gif" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="resources/images/100x100_oldBigMouse.gif" alt="">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <img src="resources/images/90x90_dog.gif" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="resources/images/100x66_cat.gif" alt="">
-                    </div>
-                    <div class="col">
-                        <img src="resources/images/100x71_pikachu.gif" alt="">
-                    </div>
-                </div>
-            </div>
-
+            что-то
         </div>
     </div>
 </div>
 </body>
+
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    <form class="modal-content">
+        <div class="container">
+            <h1>Добавление персонажа</h1>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img id="characterImg" src="" alt="">
+                        <input type="text" id="characterName" placeholder="Введите имя (максимум - 10 символов)"
+                               name="characterName"
+                               maxlength="10" required>
+                        <div class="clearfix">
+                            <button type="button" class="cancel">Назад
+                            </button>
+                            <!--                            <form name="message">-->
+                            <button id="saveChar" type="button" class="cancel">Сохранить</button>
+                            <!--                            </form>-->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="container" id="images">
+                            <div class="row">
+                                <div class="col block blue">
+                                    <img src="resources/images/people.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img src="resources/images/100x100_mouse.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img src="resources/images/100x100_oldBigMouse.gif" alt="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col block blue">
+                                    <img src="resources/images/90x90_dog.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img src="resources/images/100x66_cat.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img src="resources/images/100x71_pikachu.gif" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <script src="resources/scripts/script_game.js"></script>
 <script>
     let out_arr = document.getElementById('images');

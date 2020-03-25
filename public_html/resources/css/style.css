@@ -5,9 +5,21 @@
     border: 4px solid black;
 }
 
-#myCharactImg div {
-    width: 100px;
-    height: 100px;
+#myCharactImg div div {
+    width: 150px;
+    height: 150px;
     background: #c0ffec;
     border: 2px solid #4c3529;
+}
+
+#chetyre1:checked ~ .Blue {
+    background: #60ff43;
+}
+
+#chetyre2:checked ~ .Blue {
+    background: #60ff43;
+}
+
+#chetyre3:checked ~ .Blue {
+    background: #60ff43;
 }

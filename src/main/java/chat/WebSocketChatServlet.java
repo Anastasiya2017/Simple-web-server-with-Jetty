@@ -50,7 +50,7 @@ public class WebSocketChatServlet extends WebSocketServlet {
             resp.getWriter().println("Unauthorized");
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().println(".");
+            resp.getWriter().println("_");
             Map<String, Object> pageVariables = createPageVariablesMap(req);
             pageVariables.put("message", profile.getLogin());
             resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));

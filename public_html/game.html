@@ -10,9 +10,10 @@
     <title>start game</title>
 </head>
 <body onload="init();">
-<form method="GET">
+<button name="command" type="submit" onClick="location.replace('/profile')">завершить игру</button>
+<!--<form method="GET">
     <input name="command" type="submit" formaction="/profile" autofocus value="завершить игру">
-</form>
+</form>-->
 <blockquote class="blockquote text-center">
     <p class="mb-0"></p>
     <h1>Welcome to the Game!</h1>
@@ -33,7 +34,7 @@
         <div class="col" id="body">
             <div class="row">
                 <div class="col" class="welcome">
-                    Welcome, <input id="username" value=${message}/>
+                    Welcome, <input id="username" value=${message} />
                 </div>
                 <div class="col" id="menu">
                     <img src="resources/images/ghost.png" alt="im3" class="img-responsive center-block">
@@ -43,7 +44,7 @@
                 <textarea id="messages" rows="16" cols="50" readonly="readonly"></textarea>
             </div>
 
-            <form name="message" action="">
+            <form name="message">
                 <input name="usermsg" type="text" id="message" size="40"/>
                 <input type="button" name="submitmsg" value="Send..." onclick="sendMessage();"/>
             </form>
