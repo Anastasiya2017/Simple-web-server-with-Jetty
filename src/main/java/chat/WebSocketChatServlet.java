@@ -1,6 +1,7 @@
 package chat;
 
 import accounts.AccountService;
+import dbService.dataSets.Personage;
 import dbService.dataSets.UsersDataSet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
@@ -23,20 +24,29 @@ public class WebSocketChatServlet extends WebSocketServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
-        Map<String, Object> pageVariables = createPageVariablesMap(req);
         String sessionId = req.getSession().getId();
         UsersDataSet profile = accountService.getUserBySessionId(sessionId);
+        Map<String, Object> pageVariables = createPageVariablesMap(req);
         if (profile == null) {
+            System.out.println("null: ");
+            pageVariables.put("message", "null");
+            resp.getWriter().println(PageGenerator.instance().getPage("index.html", pageVariables));
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
+            System.out.println("login: " + profile.getLogin());
             resp.getWriter().println("_");
+            String login = profile.getLogin();
             pageVariables.put("message", profile.getLogin());
+            Personage myGamePersonage = accountService.getMyPersonagesInGame(login);
+            String img = "ds";
+            if (myGamePersonage != null) {
+                System.out.println("myGamePersonage.getImg(: " + myGamePersonage.getImg());
+                img = myGamePersonage.getImg();
+            }
+            System.out.println("img: " + img);
+            pageVariables.put("gamePersonage", "\"" + img + "\"");
             resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
             resp.setStatus(HttpServletResponse.SC_OK);
-           /* Gson gson = new Gson();
-            String json = gson.toJson(profile);
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().println(json);*/
         }
     }
 

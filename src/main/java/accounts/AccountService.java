@@ -20,8 +20,7 @@ public class AccountService {
     }
 
     public void addNewUser(String login) throws DBException {
-            long userId = dbService.addUser(login);
-            System.out.println("Added user id: " + userId + " " + login);
+        long userId = dbService.addUser(login);
     }
 
     public UsersDataSet getUserByLogin(String login) throws DBException {
@@ -30,29 +29,20 @@ public class AccountService {
     }
 
     public UsersDataSet getUserBySessionId(String sessionId) {
-        /*for(Map.Entry<String, UsersDataSet> e : sessionIdToProfile.entrySet()) {
-            System.out.println(e.getKey());
-            System.out.println(e.getValue());
-        }*/
-//        return sessionIdToProfile.get(sesdataSetsionId);
         return dbService.getUserIdSession(sessionId);
     }
 
     public void addSession(String sessionId, UsersDataSet userProfile) {
         String login = dbService.addSessionId(sessionId, userProfile);
-        System.out.println("Added user id: " + sessionId + " " + login);
-//        sessionIdToProfile.put(sessionId, userProfile);
     }
 
     public String deleteSession(UsersDataSet user) {
         String login = dbService.deleteSessionId(user);
-        System.out.println("Deleted user id: " + user + " " + login);
         return login;
     }
 
     public void addIdPersonage(String login, String idPersonage) {
         long quantityPersonages = dbService.addPersonage(login, idPersonage);
-        System.out.println(" user quantityPersonages: " + quantityPersonages + " " + idPersonage);
     }
 
     public List<Profile> getAllPersonages(String login) {
@@ -60,8 +50,7 @@ public class AccountService {
     }
 
     public void addPersonage(String namePersonage, String login, String src, String idPersonage) {
-        long id = dbService.addImgNamePersonage(namePersonage, login, src, idPersonage);
-        System.out.println(" addPersonage: " + id + " " + idPersonage + " " + namePersonage);
+        dbService.addImgNamePersonage(namePersonage, login, src, idPersonage);
     }
 
     public List<Personage> getPersonages(String login) {
@@ -71,7 +60,6 @@ public class AccountService {
 
     public String deletePersonage(String login, String namePersonage) {
         String idPersonage = dbService.deletePersonage(login, namePersonage);
-        System.out.println("ASidPersonage: " + idPersonage);
         return idPersonage;
     }
 
@@ -81,5 +69,13 @@ public class AccountService {
 
     public void updatePersonage(String login, String src, String namePersonage, String oldNameEd) {
         dbService.updatePersonage(login, src, namePersonage, oldNameEd);
+    }
+
+    public void selectPersonage(String login, String namePersonage) {
+        dbService.selectPersonage(login, namePersonage);
+    }
+
+    public Personage getMyPersonagesInGame(String login) {
+        return dbService.getMyPersonagesInGame(login);
     }
 }

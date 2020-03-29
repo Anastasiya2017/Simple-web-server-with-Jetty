@@ -8,26 +8,10 @@ window.onload = function () {
     let nameElEdit;
     let oldNameEd;
 
-    /*personages.forEach(function sumNumber(currentValue) {
-            console.log("currentValue= ", currentValue);
-            var img = currentValue.img;
-            var name = currentValue.name;
-            // console.log("img " + i + "= ", img);
-            // console.log("name " + i + "= ", name);
-            document.getElementById('addcharacter' + i).src = img;
-            document.getElementById('addcharacter' + i + 'name').innerText = name;
-            i++;
-            // $("#addcharacter1").attr(currentValue.img);
-        }
-    );
-*/
-    console.log("personages= ", personages);
     let max = personages.length < 4 ? personages.length : 3;
     for (let j = 0; j < max; j++) {
         let img = personages[j].img;
         let name = personages[j].name;
-        console.log("img " + j + "= ", img);
-        console.log("name " + j + "= ", name);
         document.getElementById('addcharacter' + (j + 1)).src = img;
         document.getElementById('addcharacter' + (j + 1) + 'name').innerText = name;
         document.getElementsByName('addcharacter' + (j + 1))[0].style.display = 'none';
@@ -35,35 +19,23 @@ window.onload = function () {
         document.getElementsByName('edit' + (j + 1))[0].style.display = 'block';
     }
 
-
-    // for (let i = 1; i < 4; i++) {
-    //     document.getElementById('id01').style.display = 'none';
-    // }
-
-
     document.body.onclick = function (e) {
-        var el = e ? e.target : event.srcElement;
-        var cls = el.className;
+        let el = e ? e.target : event.srcElement;
+        let cls = el.className;
         nameEl = e.target.name;
 
         if (cls === "addcharacter") {
             nameElAdd = nameEl;
             numEl = parseInt(nameElAdd.match(/\d+/));
-            console.log("kkkkkkkkkkkk", nameElAdd);
             document.getElementById('id01').style.display = 'block';
-            // name = document.getElementById(id + "name").innerText;
             document.getElementsByName('characterName')[0].value = "";
             document.getElementById('characterImg').src = "";
-            // name = document.getElementsByName('characterName')[0].value;
-            // document.getElementById(id + "name").innerText = name;
         }
 
         if (el.tagName === "IMG") {
             src = el.src;
             document.getElementById('characterImg').src = src;
             document.getElementById('characterImgEd').src = src;
-            // name = document.getElementsByName('characterName')[0].value;
-            // document.getElementById(id + 'name').innerText = name;
         }
 
         if (cls === "cancel" || cls === "close") {
@@ -76,7 +48,6 @@ window.onload = function () {
             let checked = document.querySelector('input[name="raz"]:checked');
             if (checked.checked) {
                 let idCh = 'add' + checked.parentElement.id;
-                // console.log("idCh= " + idCh);
                 let srcIm = document.getElementById(idCh).src;
                 let chName = document.getElementById(idCh + "name").innerText;
                 document.getElementById('mySelCharactImg').src = srcIm;
@@ -86,7 +57,6 @@ window.onload = function () {
 
         if (cls === "savePers") {
             name = document.getElementsByName('characterName')[0].value;
-            console.log(nameElAdd + 'name');
             document.getElementById(nameElAdd + 'name').innerText = name;
             document.getElementById(nameElAdd).src = src;
             if (src.trim() === '' || name.trim() === '') {
@@ -94,7 +64,6 @@ window.onload = function () {
             } else {
                 addPersonage(src, name, numEl);
                 document.getElementById('id01').style.display = 'none';
-                console.log(nameElAdd);
                 document.getElementsByName(nameElAdd)[0].style.display = 'none';
                 document.getElementsByName('delete' + numEl)[0].style.display = 'block';
                 document.getElementsByName('edit' + numEl)[0].style.display = 'block';
@@ -105,7 +74,6 @@ window.onload = function () {
 
         if (cls === "editPers") {
             name = document.getElementById('characterNameEd').value
-            console.log(nameElEdit + 'name');
             document.getElementById("addcharacter" + numEl + 'name').innerText = name;
             document.getElementById("addcharacter" + numEl).src = src;
             if (src.trim() === '' || name.trim() === '') {
@@ -113,7 +81,6 @@ window.onload = function () {
             } else {
                 editPersonage(src, name, oldNameEd);
                 document.getElementById('modulEdit').style.display = 'none';
-                console.log(nameElEdit);
                 document.getElementsByName(nameElEdit)[0].style.display = 'none';
                 document.getElementsByName('delete' + numEl)[0].style.display = 'block';
                 document.getElementsByName('edit' + numEl)[0].style.display = 'block';
@@ -131,49 +98,42 @@ window.onload = function () {
             document.getElementById('addcharacter' + numEl + 'name').innerText = "";
             document.getElementById('addcharacter' + numEl).src = "";
             deletePersonage(nameDel, numEl);
-            console.log("eeeeesss");
         }
 
         if (cls === "edit") {
             nameElEdit = nameEl;
             numEl = parseInt(nameElEdit.match(/\d+/));
-            console.log("edit", nameElEdit);
             document.getElementById('modulEdit').style.display = 'block';
-            var namePers = document.getElementById("addcharacter" + numEl + 'name').innerText;
+            let namePers = document.getElementById("addcharacter" + numEl + 'name').innerText;
             src = document.getElementById("addcharacter" + numEl).src;
-            console.log(namePers, "   ", src ," jjjjjjjjjjjj")
             document.getElementById('characterNameEd').value = namePers;
             oldNameEd = namePers;
             document.getElementById('characterImgEd').src = src;
         }
+
+        if (cls === "startGame") {
+            let imgMyPers = document.getElementById('mySelCharactImg').src;
+            let nameMyPers = document.getElementById('mySelCharactName').innerText;
+            if (imgMyPers.trim() === '' || nameMyPers.trim() === '') {
+                console.log(imgMyPers, nameMyPers);
+                document.getElementById('gamePlay').style.background = 'navy';
+            } else {
+                selectPersonage(nameMyPers);
+                location.replace('/game');
+            }
+        }
     };
 
-    // $("#saveChar").click(function addPersonage () {
     function addPersonage(src, name, numEl) {
-        // if (src.trim() !== '' && name.trim() !== '') {
         let data = {};
-        // data = {"characterName": $("#characterName").val(), "src": $("#characterImg").attr('src')};
         data = {"inform": "add", "characterName": name, "src": src, "numEl": numEl};
         console.log(data);
         $.ajax
         ({
-            type: "POST",//Метод передачи
-            data: data,//Передаваемые данные в JSON - формате
-            url: '/personage',//Название сервлета
-            success: function (serverData)//Если запрос удачен
-            {
-                // $("#auth-info").css({"background-color":serverData.backgroundColor, "height": "50px", "color":"white"});
-                // $("#auth-info").html(serverData.serverInfo);
-                console.log("yes!!")
-            },
-            error: function (e)//Если запрос не удачен
-            {
-                // $("#auth-info").css({"background-color":"#CC6666", "height": "50px", "color":"white"});
-                // $("#auth-info").html("Запрос не удался!");
-                console.log("no!!")
-            }
+            type: "POST",
+            data: data,
+            url: '/personage'
         });
-        // }
     }
 
     function editPersonage(src, name, oldNameEd) {
@@ -184,17 +144,7 @@ window.onload = function () {
         ({
             type: "POST",
             data: data,
-            url: '/personage',
-            success: function (serverData) {
-                // $("#auth-info").css({"background-color":serverData.backgroundColor, "height": "50px", "color":"white"});
-                // $("#auth-info").html(serverData.serverInfo);
-                console.log("yes!!")
-            },
-            error: function (e) {
-                // $("#auth-info").css({"background-color":"#CC6666", "height": "50px", "color":"white"});
-                // $("#auth-info").html("Запрос не удался!");
-                console.log("no!!")
-            }
+            url: '/personage'
         });
     }
 
@@ -206,17 +156,19 @@ window.onload = function () {
         ({
             type: "POST",
             data: data,
-            url: '/personage',
-            success: function (serverData) {
-                // $("#auth-info").css({"background-color":serverData.backgroundColor, "height": "50px", "color":"white"});
-                // $("#auth-info").html(serverData.serverInfo);
-                console.log("yes!!")
-            },
-            error: function (e) {
-                // $("#auth-info").css({"background-color":"#CC6666", "height": "50px", "color":"white"});
-                // $("#auth-info").html("Запрос не удался!");
-                console.log("no!!")
-            }
+            url: '/personage'
+        });
+    }
+
+    function selectPersonage(name) {
+        let data = {};
+        data = {"inform": "selectPersonage", "personageName": name};
+        console.log(data);
+        $.ajax
+        ({
+            type: "POST",
+            data: data,
+            url: '/personage'
         });
     }
 };

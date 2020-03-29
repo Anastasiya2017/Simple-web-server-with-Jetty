@@ -53,7 +53,7 @@ public class UsersDAO {
 
     public List getUsersPersonages(String login) {
         Criteria criteria = session.createCriteria(Profile.class);
-        return (/*(LinkedList<Profile>)*/ criteria.add(Restrictions.eq("login", login)).list());
+        return (criteria.add(Restrictions.eq("login", login)).list());
 
     }
 
@@ -66,32 +66,15 @@ public class UsersDAO {
         return criteria.add(Restrictions.eq("login", login)).list();
     }
 
-    /**
-     * Student student = (Student ) session.createCriteria(Student.class)
-     * .add(Restrictions.eq("classId", classId)).uniqueResult();
-     * session.delete(student);
-     *
-     * @param login
-     * @param namePersonage
-     * @return
-     */
     public String deletePersonage(String login, String namePersonage) {
         Criteria criteria = session.createCriteria(Personage.class);
         session.beginTransaction();
         Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("name", namePersonage)).uniqueResult();
         String idPersonage = personage.getPersonageId();
-        System.out.println("delete  " + idPersonage);
         session.delete(personage);
         session.getTransaction().commit();
         return idPersonage;
     }
-
-    /*  public void deleteIdPersonage(String login, String idPersonage) {
-          Criteria criteria = session.createCriteria(Profile.class);
-          Profile profile = (Profile) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("personageId", idPersonage)).uniqueResult();
-          profile.setPersonageId("");
-          session.update(profile);
-      } */
 
     public void deleteIdPersonage(String login, String idPersonage) {
         Criteria criteria = session.createCriteria(Profile.class);
@@ -105,5 +88,23 @@ public class UsersDAO {
         personage.setName(namePersonage);
         personage.setImg(src);
         session.update(personage);
+    }
+
+    public void selectPersonage(String login, String namePersonage) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("name", namePersonage)).uniqueResult();
+        System.out.println("personage 1name = " + personage.getName());
+        personage.setStatus(true);
+        System.out.println("personage name = " + personage.getName());
+        System.out.println("personage = " + personage.isStatus());
+        session.update(personage);
+    }
+
+    public Personage getMyPersonagesInGame(String login) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("status", true)).uniqueResult();
+        System.out.println("personage = " + personage.isStatus());
+//        session.update(personage);
+        return personage;
     }
 }

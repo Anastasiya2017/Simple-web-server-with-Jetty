@@ -217,22 +217,12 @@ public class DBService {
         Session session = sessionFactory.openSession();
         UsersDAO dao = new UsersDAO(session);
         String idPersonage = dao.deletePersonage(login, namePersonage);
-        System.out.println("idPersonage+ " + idPersonage);
         if (idPersonage == null) {
             return null;
         }
         session.close();
         return idPersonage;
     }
-
-    /*public void deleteIdPersonage(String login, String idPersonage) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        UsersDAO dao = new UsersDAO(session);
-        dao.deleteIdPersonage(login, idPersonage);
-        transaction.commit();
-        session.close();
-    } */
 
     public void deleteIdPersonage(String login, String idPersonage) {
         Session session = sessionFactory.openSession();
@@ -250,5 +240,24 @@ public class DBService {
         dao.updatePersonage(login, src, namePersonage, oldNameEd);
         transaction.commit();
         session.close();
+    }
+
+    public void selectPersonage(String login, String namePersonage) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.selectPersonage(login, namePersonage);
+        transaction.commit();
+        session.close();
+    }
+
+    public Personage getMyPersonagesInGame(String login) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        Personage personage = dao.getMyPersonagesInGame(login);
+        transaction.commit();
+        session.close();
+        return personage;
     }
 }
