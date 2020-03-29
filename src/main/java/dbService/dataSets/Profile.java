@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "profils")
-public class UsersProfiles implements Serializable { // Serializable Important to Hibernate!
+@Table(name = "profiles")
+public class Profile implements Serializable { // Serializable Important to Hibernate!
     private static final long serialVersionUID = -8706689714326132798L;
 
     @Id
@@ -13,35 +13,29 @@ public class UsersProfiles implements Serializable { // Serializable Important t
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "login", unique = true, updatable = false)
+    @Column(name = "login")
     private String login;
 
-    public String getCharacterName() {
-        return characterName;
-    }
+    @Column(name = "personageId")
+    private String personageId;
 
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
-    }
 
-    @Column(name = "characterName")
-    private String characterName;
 
     //Important to Hibernate!
-    @SuppressWarnings("UnusedDeclaration")
-    public UsersProfiles() {
-    }
 
     @SuppressWarnings("UnusedDeclaration")
-    public UsersProfiles(long id, String login) {
+    public Profile() {
+    }
+    @SuppressWarnings("UnusedDeclaration")
+    public Profile(long id, String login) {
         this.setId(id);
         this.setLogin(login);
     }
 
-    public UsersProfiles(String login) {
+    public Profile(String login, String personageId) {
         this.setId(-1);
         this.setLogin(login);
-        this.setCharacterName(characterName);
+        this.setPersonageId(personageId);
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -51,6 +45,14 @@ public class UsersProfiles implements Serializable { // Serializable Important t
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPersonageId() {
+        return personageId;
+    }
+
+    public void setPersonageId(String personageId) {
+        this.personageId = personageId;
     }
 
     public long getId() {
@@ -67,7 +69,7 @@ public class UsersProfiles implements Serializable { // Serializable Important t
         return "UserDataSet{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", characterName='" + characterName + '\'' +
+                ", personageId='" + personageId + '\'' +
                 '}';
     }
 }

@@ -23,3 +23,15 @@
 #chetyre3:checked ~ .Blue {
     background: #60ff43;
 }
+
+#myCharactImg div button {
+    width: auto;
+}
+
+.delete {
+    display: none;
+}
+
+.edit {
+    display: none;
+}

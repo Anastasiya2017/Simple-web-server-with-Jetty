@@ -1,7 +1,6 @@
 package chat;
 
 import accounts.AccountService;
-import com.google.gson.Gson;
 import dbService.dataSets.UsersDataSet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
@@ -24,19 +23,20 @@ public class WebSocketChatServlet extends WebSocketServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
-
         Map<String, Object> pageVariables = createPageVariablesMap(req);
-        resp.getWriter().println("gameGET.................");
-        resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
         String sessionId = req.getSession().getId();
         UsersDataSet profile = accountService.getUserBySessionId(sessionId);
         if (profile == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
-            Gson gson = new Gson();
+            resp.getWriter().println("_");
+            pageVariables.put("message", profile.getLogin());
+            resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
+            resp.setStatus(HttpServletResponse.SC_OK);
+           /* Gson gson = new Gson();
             String json = gson.toJson(profile);
             resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().println(json);
+            resp.getWriter().println(json);*/
         }
     }
 
@@ -54,6 +54,7 @@ public class WebSocketChatServlet extends WebSocketServlet {
             Map<String, Object> pageVariables = createPageVariablesMap(req);
             pageVariables.put("message", profile.getLogin());
             resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
+//            resp.sendRedirect("/game");
         }
     }
 

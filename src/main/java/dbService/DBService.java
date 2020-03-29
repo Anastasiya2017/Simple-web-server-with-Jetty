@@ -1,8 +1,9 @@
 package dbService;
 
 import dbService.dao.UsersDAO;
+import dbService.dataSets.Personage;
 import dbService.dataSets.UsersDataSet;
-import dbService.dataSets.UsersProfiles;
+import dbService.dataSets.Profile;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class DBService {
     private static final String hibernate_show_sql = "true";
@@ -30,7 +32,8 @@ public class DBService {
     private Configuration getPostgresConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(UsersDataSet.class);
-        configuration.addAnnotatedClass(UsersProfiles.class);
+        configuration.addAnnotatedClass(Profile.class);
+        configuration.addAnnotatedClass(Personage.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
@@ -59,6 +62,8 @@ public class DBService {
     private Configuration getH2Configuration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(UsersDataSet.class);
+        configuration.addAnnotatedClass(Profile.class);
+        configuration.addAnnotatedClass(Personage.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
@@ -163,5 +168,87 @@ public class DBService {
         transaction.commit();
         session.close();
         return login;
+    }
+
+    public long addPersonage(String login, String idPersonage) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.insertPersonage(login, idPersonage);
+        long quantityPersonages = dao.getUserQuantityPersonages(login);
+        transaction.commit();
+        session.close();
+        return quantityPersonages;
+    }
+
+    public List<Profile> getUsersPersonages(String login) {
+        Session session = sessionFactory.openSession();
+        UsersDAO dao = new UsersDAO(session);
+        List<Profile> profiles = dao.getUsersPersonages(login);
+        if (profiles == null) {
+            return null;
+        }
+        session.close();
+        return profiles;
+    }
+
+    public long addImgNamePersonage(String namePersonage, String login, String src, String idPersonage) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        long id = dao.insertPersonageImgName(namePersonage, login, src, idPersonage);
+        transaction.commit();
+        session.close();
+        return id;
+    }
+
+    public List<Personage> getAllPersonagesUser(String login) {
+        Session session = sessionFactory.openSession();
+        UsersDAO dao = new UsersDAO(session);
+        List allPersonages = dao.getAllPersonagesUser(login);
+        if (allPersonages == null) {
+            return null;
+        }
+        session.close();
+        return allPersonages;
+    }
+
+    public String deletePersonage(String login, String namePersonage) {
+        Session session = sessionFactory.openSession();
+        UsersDAO dao = new UsersDAO(session);
+        String idPersonage = dao.deletePersonage(login, namePersonage);
+        System.out.println("idPersonage+ " + idPersonage);
+        if (idPersonage == null) {
+            return null;
+        }
+        session.close();
+        return idPersonage;
+    }
+
+    /*public void deleteIdPersonage(String login, String idPersonage) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.deleteIdPersonage(login, idPersonage);
+        transaction.commit();
+        session.close();
+    } */
+
+    public void deleteIdPersonage(String login, String idPersonage) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.deleteIdPersonage(login, idPersonage);
+        transaction.commit();
+        session.close();
+    }
+
+    public void updatePersonage(String login, String src, String namePersonage, String oldNameEd) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.updatePersonage(login, src, namePersonage, oldNameEd);
+        transaction.commit();
+        session.close();
     }
 }

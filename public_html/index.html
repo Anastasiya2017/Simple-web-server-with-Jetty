@@ -2,25 +2,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>NEW GAME 20_ 20</title>
+    <title>GameX</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body onload="init();">
-<p>Welcome to the Game!</p>
-<p>Account login
-</p>
-<div style="background: aliceblue; height: 67px; width: max-content;">
-    <p><b>Вход</b></p>
-    <form  method="POST"><!--action="profile.html"-->
-        Login: <input type="text" name="login"/>
-        Password: <input type="password" name="password"/>
-        <input type="submit" formaction="/signin" autofocus value="Sign in">
-    </form>
-    <p><b>Регистрация</b></p>
-    <form action="index.html" method="POST">
-        Login: <input type="text" name="login"/>
-        Password: <input type="password" name="password"/>
-        <input type="submit" formaction="/signup" autofocus value="Sign up">
-    </form>
+<h2 style="text-align: center"><p>Добро пожаловать в GameX!</p></h2>
+<div class="container">
+    <div class="row">
+        <div class="col" style="background: aliceblue">
+            <p><b>Вход</b></p>
+            <form method="POST">
+                <div class="form-group row">
+                    <label for="inputLogin" class="col-sm-2 col-form-label">Логин</label>
+                    <input type="text" id="inputLogin" name="login"/>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
+                    <input type="password" id="inputPassword" name="password"/>
+                </div>
+                <div class="form-group row">
+                    <input type="submit" formaction="/signin" autofocus value="Вход">
+                </div>
+            </form>
+        </div>
+        <div class="col" style="background: aliceblue">
+            <p><b>Регистрация</b></p>
+            <form method="POST">
+                <div class="form-group row">
+                    <label for="inputLoginUp" class="col-sm-2 col-form-label">Логин</label>
+                    <input type="text" id="inputLoginUp" name="login"/>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPasswordUp" class="col-sm-2 col-form-label">Пароль</label>
+                    <input type="password" id="inputPasswordUp" name="password"/>
+                </div>
+                <div class="form-group row">
+                    <input type="submit" formaction="/signup" autofocus value="Регистрация">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

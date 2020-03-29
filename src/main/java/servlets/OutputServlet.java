@@ -46,7 +46,7 @@ public class OutputServlet extends HttpServlet {
             return;
         }
         accountService.deleteSession(profile);
-        resp.setStatus(HttpServletResponse.SC_OK);
+//        req.logout();
         Map<String, Object> pageVariables = createPageVariablesMap(req);
         pageVariables.put("message", profile.getLogin());
         resp.getWriter().println(PageGenerator.instance().getPage("index.html", pageVariables));

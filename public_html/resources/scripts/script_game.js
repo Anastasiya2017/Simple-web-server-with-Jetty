@@ -1,50 +1,3 @@
-window.onload = function () {
-    var id;
-    var name;
-    var src;
-    document.body.onclick = function (e) {
-        var el = e ? e.target : event.srcElement;
-        var cls = el.className;
-
-        if (cls === "addcharacter") {
-            document.getElementById('id01').style.display = 'block';
-            id = e.target.name;
-            name = document.getElementById(id + "name").innerText;
-            document.getElementsByName('characterName')[0].value = name;
-            // name = document.getElementsByName('characterName')[0].value;
-            // document.getElementById(id + "name").innerText = name;
-        }
-
-        if (el.tagName === "IMG") {
-            src = el.src
-            document.getElementById('characterImg').src = src;
-            // name = document.getElementsByName('characterName')[0].value;
-            // document.getElementById(id + 'name').innerText = name;
-        }
-
-        if (cls === "cancel") {
-            name = document.getElementsByName('characterName')[0].value;
-            document.getElementById(id + 'name').innerText = name;
-            document.getElementById(id).src = src;
-            document.getElementById('id01').style.display = 'none';
-        }
-
-        if (cls === "onCheck") {
-            var checked = document.querySelector('input[name="raz"]:checked');
-            if (checked.checked) {
-                var idCh = 'add'+ checked.parentElement.id;
-                // console.log("idCh= " + idCh);
-                var srcIm = document.getElementById(idCh).src;
-                var chName = document.getElementById(idCh + "name").innerText;
-                document.getElementById('mySelCharactImg').src = srcIm;
-                document.getElementById('mySelCharactName').innerText = chName;
-            }
-        }
-    };
-};
-
-////////////////////////////////////////////////////////////////2
-
 function move(e) {
     // Кросс-браузерное получение объекта событие:
     e = e || window.event;
@@ -88,7 +41,7 @@ function move(e) {
 document.onkeydown = move;
 ///////////////////////////////////////////////////////////////////////1 chat
 
-var ws;
+let ws;
 
 function init() {
     ws = new WebSocket("ws://localhost:8080/game");

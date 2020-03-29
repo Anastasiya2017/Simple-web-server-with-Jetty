@@ -1,10 +1,14 @@
 package dbService.dao;
 
+import dbService.dataSets.Personage;
+import dbService.dataSets.Profile;
 import dbService.dataSets.UsersDataSet;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+
+import java.util.List;
 
 public class UsersDAO {
 
@@ -36,5 +40,70 @@ public class UsersDAO {
         user.setIdSession(sessionId);
         session.update(user);
         return user.getLogin();
+    }
+
+    public void insertPersonage(String login, String idPersonage) {
+        session.save(new Profile(login, idPersonage));
+    }
+
+    public long getUserQuantityPersonages(String login) {
+        Criteria criteria = session.createCriteria(Profile.class);
+        return criteria.add(Restrictions.eq("login", login)).list().size();
+    }
+
+    public List getUsersPersonages(String login) {
+        Criteria criteria = session.createCriteria(Profile.class);
+        return (/*(LinkedList<Profile>)*/ criteria.add(Restrictions.eq("login", login)).list());
+
+    }
+
+    public long insertPersonageImgName(String namePersonage, String login, String src, String idPersonage) {
+        return (Long) session.save(new Personage(namePersonage, login, src, idPersonage));
+    }
+
+    public List getAllPersonagesUser(String login) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        return criteria.add(Restrictions.eq("login", login)).list();
+    }
+
+    /**
+     * Student student = (Student ) session.createCriteria(Student.class)
+     * .add(Restrictions.eq("classId", classId)).uniqueResult();
+     * session.delete(student);
+     *
+     * @param login
+     * @param namePersonage
+     * @return
+     */
+    public String deletePersonage(String login, String namePersonage) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        session.beginTransaction();
+        Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("name", namePersonage)).uniqueResult();
+        String idPersonage = personage.getPersonageId();
+        System.out.println("delete  " + idPersonage);
+        session.delete(personage);
+        session.getTransaction().commit();
+        return idPersonage;
+    }
+
+    /*  public void deleteIdPersonage(String login, String idPersonage) {
+          Criteria criteria = session.createCriteria(Profile.class);
+          Profile profile = (Profile) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("personageId", idPersonage)).uniqueResult();
+          profile.setPersonageId("");
+          session.update(profile);
+      } */
+
+    public void deleteIdPersonage(String login, String idPersonage) {
+        Criteria criteria = session.createCriteria(Profile.class);
+        Profile profile = (Profile) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("personageId", idPersonage)).uniqueResult();
+        session.delete(profile);
+    }
+
+    public void updatePersonage(String login, String src, String namePersonage, String oldNameEd) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("name", oldNameEd)).uniqueResult();
+        personage.setName(namePersonage);
+        personage.setImg(src);
+        session.update(personage);
     }
 }

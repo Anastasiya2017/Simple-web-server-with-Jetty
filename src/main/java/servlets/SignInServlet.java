@@ -20,7 +20,6 @@ public class SignInServlet extends HttpServlet {
         this.accountService = accountService;
     }
 
-
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=utf-8");
         String sessionId = req.getSession().getId();
@@ -44,7 +43,6 @@ public class SignInServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-
         UsersDataSet profile = null;
         try {
             profile = accountService.getUserByLogin(login);
@@ -62,7 +60,8 @@ public class SignInServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
         Map<String, Object> pageVariables = createPageVariablesMap(req);
         pageVariables.put("message", profile.getLogin());
-        resp.getWriter().println(PageGenerator.instance().getPage("profile.html", pageVariables));
+        resp.sendRedirect("/personage");
+//        resp.getWriter().println(PageGenerator.instance().getPage("profile.html", pageVariables));
     }
 
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request) {

@@ -8,94 +8,111 @@
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="newcharacter/form.css">
     <link rel="import" href="newcharacter/form_create.html">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>start game</title>
 </head>
 <body onload="init();">
-<form method="POST">
-    <input type="submit" formaction="/signout" autofocus value="Выход">
-</form>
-<form method="POST">
-    <input name="command" type="submit" formaction="/game" autofocus value="Играть">
-</form>
-<blockquote class="blockquote text-center">
-    <p class="mb-0"></p>
-    <h1>Игрок <b>${message}</b> - добро пожаловать!</h1>
-    <footer> Настройки ваших персонажей<cite title="Название источника"></cite>
-    </footer>
-</blockquote>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <button type="" onClick="location.replace('/signout')">Выход</button>
+            <button type="" onClick="location.replace('/game')">Играть</button>
+            <!--     <form method="POST">
+                     <input name="exit" type="submit" formaction="/signout" autofocus value="Выход">
+                 </form>
+                 -->
+            <!--<form method="POST">
+                <input name="command" type="submit" formaction="/game" autofocus value="Играть">
+            </form>-->
+        </div>
+        <div class="col-8">
+            <blockquote class="blockquote text-center">
+                <p class="mb-0"></p>
+                <h1>Игрок <b id="ggggggg">${message}</b> - добро пожаловать!</h1>
+                <footer> Настройки ваших персонажей<cite title="Название источника"></cite>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col">
             <fieldset>
                 <legend>выбранный персонаж</legend>
-                <div class="text-left"><img class="characterImg" id="mySelCharactImg"
+                <div class="text-left"><img width="100" height="100" class="characterImg" id="mySelCharactImg"
                                             src="resources/images/100x71_pikachu.gif" alt=""></div>
                 <p id="mySelCharactName">Имя персонажа</p>
             </fieldset>
-            <p></p>
             <img src="" id="myCharact">
             <div class="row" id="myCharactImg">
                 <div id="character1" class="col-sm text-center">
                     <input id="chetyre3" class="onCheck" name="raz" type="radio"/>
-                    <div class="Blue"><img id="addcharacter1" class="addcharacter1"
-                                           src=""
-                                           alt="персонаж 1">
-                        <figcaption id="addcharacter1name">Имя</figcaption>
+                    <div class="Blue">
+                        <img width="100" height="100" id="addcharacter1" class="addcharacter1"
+                             src=""
+                             alt="персонаж 1">
+                        <figcaption id="addcharacter1name"></figcaption>
                     </div>
-                    <button class="addcharacter" name="addcharacter1" style="width:auto;">+
-                    </button>
+                    <button class="addcharacter" name="addcharacter1">+</button>
+                    <button class="delete" name="delete1">-</button>
+                    <button class="edit" name="edit1">/</button>
                 </div>
                 <div id="character2" class="col-sm text-center">
                     <input id="chetyre1" class="onCheck" name="raz" type="radio"/>
                     <div class="Blue">
-                        <img id="addcharacter2" class="addcharacter2"
+                        <img width="100" height="100" id="addcharacter2" class="addcharacter2"
                              src=""
                              alt="персонаж 2">
-                        <figcaption id="addcharacter2name">Имя</figcaption>
+                        <figcaption id="addcharacter2name"></figcaption>
                     </div>
-                    <button class="addcharacter" name="addcharacter2" style="width:auto;">+
-                    </button>
+                    <button class="addcharacter" name="addcharacter2">+</button>
+                    <button class="delete" name="delete2">-</button>
+                    <button class="edit" name="edit2">/</button>
                 </div>
                 <div id="character3" class="col-sm text-center">
                     <input id="chetyre2" class="onCheck" name="raz" type="radio"/>
-                    <div class="Blue"><img id="addcharacter3" class="addcharacter3"
-                                           src=""
-                                           alt="персонаж 3">
-                        <figcaption id="addcharacter3name"
-                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Имя
-                        </figcaption>
+                    <div class="Blue">
+                        <img width="100" height="100" id="addcharacter3" class="addcharacter3"
+                             src=""
+                             alt="персонаж 3">
+                        <figcaption id="addcharacter3name"></figcaption>
                     </div>
-                    <button class="addcharacter" name="addcharacter3" style="width:auto;">+
-                    </button>
+                    <button class="addcharacter" name="addcharacter3">+</button>
+                    <button class="delete" name="delete3">-</button>
+                    <button class="edit" name="edit3">/</button>
                 </div>
             </div>
         </div>
         <div class="col">
-            что-то
+            <img width="550" src="resources/images/dop.png" alt="">
         </div>
     </div>
 </div>
 </body>
-
+<div id="personages" style="display: none"> ${personages}</div>
 <div id="id01" class="modal">
-    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-    <form class="modal-content">
+    <span class="close" title="Close Modal">×</span>
+    <!--onclick="document.getElementById('id01').style.display='none'"-->
+    <form class="modal-content"><!--action="/personage" method="POST"-->
+        <div id="auth-info"></div>
         <div class="container">
             <h1>Добавление персонажа</h1>
             <hr>
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <img id="characterImg" src="" alt="">
+                        <img width="100" height="100" id="characterImg" src="" alt="">
                         <input type="text" id="characterName" placeholder="Введите имя (максимум - 10 символов)"
                                name="characterName"
                                maxlength="10" required>
                         <div class="clearfix">
-                            <button type="button" class="cancel">Назад
-                            </button>
-                            <!--                            <form name="message">-->
-                            <button id="saveChar" type="button" class="cancel">Сохранить</button>
+                            <button type="button" class="cancel">Назад</button>
+                            <!--                            <button id="saveChar" type="button" class="cancel">Сохранить</button>-->
+                            <!--                            <form name="message" method="POST">-->
+                            <button type="button" id="saveChar" class="savePers">Сохранить</button>
+                            <!--formaction="/personage" type="submit"-->
                             <!--                            </form>-->
                         </div>
                     </div>
@@ -103,24 +120,24 @@
                         <div class="container" id="images">
                             <div class="row">
                                 <div class="col block blue">
-                                    <img src="resources/images/people.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/people.gif" alt="">
                                 </div>
                                 <div class="col block blue">
-                                    <img src="resources/images/100x100_mouse.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/100x100_mouse.gif" alt="">
                                 </div>
                                 <div class="col block blue">
-                                    <img src="resources/images/100x100_oldBigMouse.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/100x100_oldBigMouse.gif" alt="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col block blue">
-                                    <img src="resources/images/90x90_dog.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/90x90_dog.gif" alt="">
                                 </div>
                                 <div class="col block blue">
-                                    <img src="resources/images/100x66_cat.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/100x66_cat.gif" alt="">
                                 </div>
                                 <div class="col block blue">
-                                    <img src="resources/images/100x71_pikachu.gif" alt="">
+                                    <img width="100" height="100" src="resources/images/100x71_pikachu.gif" alt="">
                                 </div>
                             </div>
                         </div>
@@ -130,9 +147,56 @@
         </div>
     </form>
 </div>
-<script src="resources/scripts/script_game.js"></script>
-<script>
-    let out_arr = document.getElementById('images');
 
-</script>
+<div id="modulEdit" class="modal">
+    <span class="close" title="Close Modal">×</span>
+    <form class="modal-content">
+        <div id="auth-info-edit"></div>
+        <div class="container">
+            <h1>Изменение персонажа</h1>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img width="100" height="100" id="characterImgEd" src="" alt="">
+                        <input type="text" id="characterNameEd" placeholder="Введите имя (максимум - 10 символов)"
+                               name="characterName"
+                               maxlength="10" required>
+                        <div class="clearfix">
+                            <button type="button" class="cancel">Назад</button>
+                            <button type="button" id="saveCharEd" class="editPers">Сохранить</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="container" id="imagesEd">
+                            <div class="row">
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/people.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/100x100_mouse.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/100x100_oldBigMouse.gif" alt="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/90x90_dog.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/100x66_cat.gif" alt="">
+                                </div>
+                                <div class="col block blue">
+                                    <img width="100" height="100" src="resources/images/100x71_pikachu.gif" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="resources/scripts/script.js"></script>
 </html>

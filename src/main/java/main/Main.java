@@ -8,10 +8,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.OutputServlet;
-import servlets.ProfileServlet;
-import servlets.SignInServlet;
-import servlets.SignUpServlet;
+import servlets.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -24,12 +21,13 @@ public class Main {
         //создаем 2 сервлета: 1) для регистрации
         //                    2) для авторизации
         // и закладываем эти сервлеты по адресам
+        context.addServlet(new ServletHolder(new PersonageServlet(accountService)), "/personage");
         context.addServlet(new ServletHolder(new WebSocketChatServlet(accountService)), "/game");
         context.addServlet(new ServletHolder(new ProfileServlet(accountService)), "/profile");
         context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
         context.addServlet(new ServletHolder(new OutputServlet(accountService)), "/signout");
-//        context.addServlet(new ServletHolder(new UsersServlet(accountService)), "/api/v1/users");
+//        context.addServlet(new ServletHolder(new PersonageServlet(accountService)), "/api/v1/users");
         //добавляем возможность работать со статическими файлами
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
