@@ -78,4 +78,9 @@ public class AccountService {
     public Personage getMyPersonagesInGame(String login) {
         return dbService.getMyPersonagesInGame(login);
     }
+
+    public void updateCoordinatesPersonage(String login, String left, String top) {
+        dbService.updateCoordinatesPersonage(login, left, top);
+
+    }
 }

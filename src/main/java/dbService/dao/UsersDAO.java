@@ -58,7 +58,7 @@ public class UsersDAO {
     }
 
     public long insertPersonageImgName(String namePersonage, String login, String src, String idPersonage) {
-        return (Long) session.save(new Personage(namePersonage, login, src, idPersonage));
+        return (Long) session.save(new Personage(namePersonage, login, src, idPersonage, "18", "30"));
     }
 
     public List getAllPersonagesUser(String login) {
@@ -106,5 +106,14 @@ public class UsersDAO {
         System.out.println("personage = " + personage.isStatus());
 //        session.update(personage);
         return personage;
+    }
+
+    public void updateCoordinatesPersonage(String login, String left, String top) {
+        Criteria criteria = session.createCriteria(Personage.class);
+        Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("status", true)).uniqueResult();
+        personage.setX(left);
+        personage.setY(top);
+        System.out.println(left + " : " + top);
+        session.update(personage);
     }
 }

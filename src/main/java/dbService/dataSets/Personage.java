@@ -42,12 +42,14 @@ public class Personage implements Serializable { // Serializable Important to Hi
     public Personage() {
     }
 
-    public Personage(String name,String login, String img, String personageId) {
+    public Personage(String name,String login, String img, String personageId, String x, String y) {
         this.setId(-1);
         this.setName(name);
         this.setLogin(login);
         this.setPersonageId(personageId);
         this.setImg(img);
+        this.setX(x);
+        this.setY(y);
     }
 
     public Personage(String personageId, String login, boolean status, String img, String level, String x, String y) {

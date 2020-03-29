@@ -119,7 +119,7 @@ window.onload = function () {
                 document.getElementById('gamePlay').style.background = 'navy';
             } else {
                 selectPersonage(nameMyPers);
-                location.replace('/game');
+
             }
         }
     };
@@ -168,7 +168,10 @@ window.onload = function () {
         ({
             type: "POST",
             data: data,
-            url: '/personage'
+            url: '/personage',
+            success: function (data) {
+                location.replace('/game');
+            }
         });
     }
 };

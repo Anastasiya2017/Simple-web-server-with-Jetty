@@ -260,4 +260,13 @@ public class DBService {
         session.close();
         return personage;
     }
+
+    public void updateCoordinatesPersonage(String login, String left, String top) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        UsersDAO dao = new UsersDAO(session);
+        dao.updateCoordinatesPersonage(login, left, top);
+        transaction.commit();
+        session.close();
+    }
 }
