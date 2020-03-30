@@ -17,24 +17,11 @@ function move(e) {
     let mainCharacter = document.getElementById("PerSonag");
     let borders = document.querySelector('#square').getBoundingClientRect();
     let mainCharacter2 = document.querySelector('#PerSonag').getBoundingClientRect();
-    console.log("mainCharacter2: ", mainCharacter2.left, " : ",  mainCharacter2.top);
+    // console.log("mainCharacter2: ", mainCharacter2.left, " : ",  mainCharacter2.top);
 
-    function setСoordinates(left, top) {
-        let data = {};
-        data = {"inform": "coordinates", "left": left, "top": top};
-        console.log(data);
-        $.ajax
-        ({
-            type: "POST",
-            data: data,
-            url: '/game',
-            success: function (data) {
-                // location.replace('/game');
-            }
-        });
-    }
 
-    setСoordinates(mainCharacter2.left, mainCharacter2.top);
+
+    // setСoordinates(mainCharacter.style.left, mainCharacter2.style.top);
     // Определяем нажатие клавиш "влево", "вверх"
     // "вправо" и "вниз", коды клавиш 37, 38, 39, 40:
     if ((keyCode === 37) && (borders.left <= mainCharacter2.left)) {
@@ -53,6 +40,23 @@ function move(e) {
     // Отменяем действие по умолчанию:
     e.preventDefault(); // Gecko, ...
     e.returnValue = false; // IE
+}
+function setСoordinates() {
+    let left = document.getElementById("PerSonag").style.left;
+    let top = document.getElementById("PerSonag").style.top;
+    let data = {};
+    data = {"inform": "coordinates", "left": left, "top": top};
+    // console.log(data);
+    $.ajax
+    ({
+        type: "POST",
+        data: data,
+        url: '/game'
+        ,
+        success: function (data) {
+            location.replace('/personage');
+        }
+    });
 }
 
 // Устанавливаем обработчик на весь документ:
@@ -77,7 +81,7 @@ function sendMessage() {
     let messageField = document.getElementById("message");
     var userNameField = document.getElementById("username");
     var message = userNameField.value + ": " + messageField.value;
-    if (messageField.trim() !== '' ) {
+    if (messageField.trim !== '' ) {
         ws.send(message);
     }
     messageField.value = '';

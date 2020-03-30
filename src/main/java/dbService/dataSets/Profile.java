@@ -66,7 +66,7 @@ public class Profile implements Serializable { // Serializable Important to Hibe
 
     @Override
     public String toString() {
-        return "UserDataSet{" +
+        return "Profile{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", personageId='" + personageId + '\'' +

@@ -43,17 +43,11 @@ public class WebSocketChatServlet extends WebSocketServlet {
                     String top = req.getParameter("top");
                     Map<String, Object> pageVariables = createPageVariablesMap(req);
                     String login = profile.getLogin();
-                    String[] coordinates = new String[2];
-                    coordinates[0] = "189.5px";
-                    coordinates[1] = "198px";
-//                    String coordinat = "style=\"position: absolute; left: 187px; top: 190px;\"";
-                    pageVariables.put("left", coordinates[0]);
-                    pageVariables.put("top", coordinates[1]);
                     pageVariables.put("message", profile.getLogin());
                     System.out.println("selectPersonage!!" + left + " : " + top);
                     accountService.updateCoordinatesPersonage(login, left, top);
                     System.out.println("успех!!");
-//                    resp.sendRedirect("/game");
+                    resp.sendRedirect("/personage");
                 }
             }
         }
@@ -74,23 +68,23 @@ public class WebSocketChatServlet extends WebSocketServlet {
             resp.getWriter().println("_");
             String login = profile.getLogin();
             pageVariables.put("message", profile.getLogin());
-
             Personage myGamePersonage = accountService.getMyPersonagesInGame(login);
             String img = "ds";
+            String[] coordinates = new String[2];
+            /*coordinates[0] = "18";
+            coordinates[1] = "30";*/
+//                  accountService.updateCoordinatesPersonage(login, left, top);
             if (myGamePersonage != null) {
                 System.out.println("myGamePersonage.getImg(: " + myGamePersonage.getImg());
                 img = myGamePersonage.getImg();
-                String[] coordinates = new String[2];
                 coordinates[0] = myGamePersonage.getX();
                 coordinates[1] = myGamePersonage.getY();
-                String coordinat = "style=\"position: absolute; left: " + coordinates[0] + "px; top: " + coordinates[1] + "px;\"";
-                pageVariables.put("coordinat", coordinat);
+                pageVariables.put("coordinat", "style=\"position: absolute; left: " + coordinates[0] + "; top:  " + coordinates[1] + ";\"");
             }
-
-            System.out.println("img: " + img);
-            pageVariables.put("gamePersonage", "\"" + img + "\"");
-            resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
-            resp.setStatus(HttpServletResponse.SC_OK);
+                System.out.println(" coordinates[0]: " +  coordinates[0] + " : " + coordinates[1] );
+                pageVariables.put("gamePersonage", "\"" + img + "\"");
+                resp.getWriter().println(PageGenerator.instance().getPage("game.html", pageVariables));
+                resp.setStatus(HttpServletResponse.SC_OK);
         }
     }
 

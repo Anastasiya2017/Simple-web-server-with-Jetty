@@ -93,18 +93,13 @@ public class UsersDAO {
     public void selectPersonage(String login, String namePersonage) {
         Criteria criteria = session.createCriteria(Personage.class);
         Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("name", namePersonage)).uniqueResult();
-        System.out.println("personage 1name = " + personage.getName());
         personage.setStatus(true);
-        System.out.println("personage name = " + personage.getName());
-        System.out.println("personage = " + personage.isStatus());
         session.update(personage);
     }
 
     public Personage getMyPersonagesInGame(String login) {
         Criteria criteria = session.createCriteria(Personage.class);
         Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("status", true)).uniqueResult();
-        System.out.println("personage = " + personage.isStatus());
-//        session.update(personage);
         return personage;
     }
 
@@ -113,7 +108,7 @@ public class UsersDAO {
         Personage personage = (Personage) criteria.add(Restrictions.eq("login", login)).add(Restrictions.eq("status", true)).uniqueResult();
         personage.setX(left);
         personage.setY(top);
-        System.out.println(left + " : " + top);
+        personage.setStatus(false);
         session.update(personage);
     }
 }

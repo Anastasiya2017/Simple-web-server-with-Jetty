@@ -1,3 +1,19 @@
-/home/asya/Загрузки/javaApps/stepic_java_webserver/L1.1 Simple web server/src/main/java/templater/PageGenerator.java
-/home/asya/Загрузки/javaApps/stepic_java_webserver/L1.1 Simple web server/src/main/java/servlets/AllRequestsServlet.java
-/home/asya/Загрузки/javaApps/stepic_java_webserver/L1.1 Simple web server/src/main/java/main/Main.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/servlets/PersonageServlet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/servlets/ProfileServlet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/chat/ChatService.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/DBException.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/chat/WebSocketChatServlet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/accounts/AccountService.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/dataSets/Personage.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/chat/ChatWebSocket.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/dao/UsersDAO.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/executor/ResultHandler.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/DBService.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/templater/PageGenerator.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/executor/Executor.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/dataSets/UsersDataSet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/dbService/dataSets/Profile.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/main/Main.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/servlets/OutputServlet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/servlets/SignInServlet.java
+/home/asya/Загрузки/javaApps/Simple web server with Jetty/src/main/java/servlets/SignUpServlet.java

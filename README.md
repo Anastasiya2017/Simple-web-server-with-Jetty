@@ -41,3 +41,22 @@ Creating a server prototype for a multiplayer online game.
 ~~o выход из игрового мира;~~
 
 ~~o выход из учётной записи.~~
+
+Информация по запуску:
+
+- Создать БД PostgreSQL (логин: postgres, пароль: postgres, имя БД: postgres)
+
+{можно в файле src/main/java/dbService/DBService.java
+заменить на другую БД  в строке:  Configuration configuration = getPostgresConfiguration();}
+
+- далее можно просто запустить файл start.sh (linux) или start.bat (windows)
+
+-Если вы вносили правки, то необходимо собрать через maven (в среде можно также запустить src/main/java/main/Main.java)
+
+Особенности: 
+
+!! Не создавать персонажей с одинаковыми именами;
+
+!! Пароль сейчас можно вводить любой, потому что он на копируется с логина 
+
+!! У созданных пользователей должны быть неповторимые логины
